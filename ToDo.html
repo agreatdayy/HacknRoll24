@@ -106,10 +106,10 @@
         }
 
         function clearTask() {
-            var cancelButton = document.createElement("button2");
             var ul = document.getElementById("task-list");
-            ul.remove();
-            
+            while (ul.lastElementChild !== null) {
+                ul.removeChild(ul.lastElementChild);
+            }
         }
         
         function editTask(taskValue) {
@@ -130,6 +130,7 @@
                 var task = document.createElement("task");
                 var checkbox = document.createElement("input");
                 checkbox.type = "checkbox";
+                checkbox.id = "check";
                 checkbox.addEventListener("change", function() {
                     if (checkbox.checked) {
                         // Remove the task when the checkbox is checked
