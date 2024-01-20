@@ -18,14 +18,8 @@
             list-style: none;
             padding: 0;
         }
-        /* task:not(:last-child) {
+        task:not(:last-child) {
             margin-bottom: 10px;
-        } */
-        task {
-            margin-top: 20px;
-            margin-bottom: 20px;
-            display: flex; /* Use flex display for the task container */
-            align-items: center; /* Align items in the center */
         }
         label {
             display: inline-block;
@@ -67,7 +61,6 @@
             background-color: #4e4caf;
             color: white;
             font-size: 14px;
-            margin-left: auto;
         }
         button3:hover {
             background-color: rgb(213, 167, 41);
@@ -95,17 +88,13 @@
     <script>
         function clearTask() {
             var cancelButton = document.createElement("button2");
-            var ul = document.getElementById("task-list");
-            ul.remove();
+            task.appendChild(cancelButton);
             
         }
         
         function editTask(taskValue) {
             var newText = prompt("Edit text: ");
-            if (newText !== null) {
-                // Update the text content of the specific task
-                taskValue.childNodes[1].nodeValue = newText;
-            }
+            taskValue.replace(newText);       
         }
 
         function addTask() {
@@ -136,11 +125,8 @@
                     editTask(task);
                 }
                 task.appendChild(editButton);
-                
-                // Add a line break after each task
-                var lineBreak = document.createElement("br");
-                task.appendChild(lineBreak);
 
+                
                 // Add the list item to the task list
                 var ul = document.getElementById("task-list");
                 ul.appendChild(task);
