@@ -5,6 +5,7 @@
     <style>
         body {
             font-family: Arial, sans-serif;
+            background-color: #8b8ba4;
         }
         .container {
             margin: 0 auto;
@@ -17,7 +18,7 @@
             list-style: none;
             padding: 0;
         }
-        li:not(:last-child) {
+        task:not(:last-child) {
             margin-bottom: 10px;
         }
         label {
@@ -31,53 +32,108 @@
             border: 1px solid #ccc;
             font-size: 16px;
         }
-        button {
+        button1 {
             padding: 5px 15px;
             border-radius: 5px;
             border: none;
-            background-color: #4CAF50;
+            background-color: #4e4caf;
             color: white;
             font-size: 16px;
         }
-        button:hover {
+        button1:hover {
             background-color: #3E8E41;
+        }
+        button2 {
+            padding: 5px 15px;
+            border-radius: 5px;
+            border: none;
+            background-color: #c14545;
+            color: white;
+            font-size: 16px;
+        }
+        button2:hover {
+            background-color: rgb(213, 167, 41);
+        }
+        button3 {
+            padding: 3px 13px;
+            border-radius: 3px;
+            border: none;
+            background-color: #4e4caf;
+            color: white;
+            font-size: 14px;
+        }
+        button3:hover {
+            background-color: rgb(213, 167, 41);
+        }
+        img {
+            background-color: transparent;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>To-DoDoDo List</h1>
+
+        <h1><img src="https://banner2.cleanpng.com/20180705/ruq/kisspng-symbol-computer-icons-calendar-icon-calendar-5b3ed133207fe8.7696121815308434431331.jpg" alt="Calendar" 
+            style="float:left;width:42px;height:42px;">To-DoDoDo List</h1>
         <form>
             <label for="task">New task:</label>
             <input type="text" id="task" name="task" placeholder="Enter task">
-            <button type="button" onclick="addTask()">Add</button>
+            <button1 type="button1" onclick="addTask()">Add</button1>
+            <button2 type="clear" onclick="clearTask()">Clear All</button2>
         </form>
         <ul id="task-list">
 
         </ul>
     </div>
     <script>
+        function clearTask() {
+            var cancelButton = document.createElement("button2");
+            task.appendChild(cancelButton);
+            
+        }
+        
+        function editTask(taskValue) {
+            var newText = prompt("Edit text: ");
+            taskValue.replace(newText);       
+        }
+
         function addTask() {
             // Get the input field and value
             var taskInput = document.getElementById("task");
             var taskValue = taskInput.value;
 
-            // Create a new list item and check box
-            var li = document.createElement("li");
-            var checkbox = document.createElement("input");
-            checkbox.type = "checkbox";
-            li.appendChild(checkbox);
+            if (taskValue != "") {
+                // Create a new list item and check box
+                var task = document.createElement("task");
+                var checkbox = document.createElement("input");
+                checkbox.type = "checkbox";
+                checkbox.addEventListener("change", function() {
+                    if (checkbox.checked) {
+                        // Remove the task when the checkbox is checked
+                        task.remove();
+                    }
+                });
+                task.appendChild(checkbox);
 
-            // Add the task text to the list item
-            var textNode = document.createTextNode(taskValue);
-            li.appendChild(textNode);
+                // Add the task text to the list item
+                var textNode = document.createTextNode(taskValue);
+                task.appendChild(textNode);
 
-            // Add the list item to the task list
-            var ul = document.getElementById("task-list");
-            ul.appendChild(li);
+                var editButton = document.createElement("button3");
+                editButton.innerText = "Edit";
+                editButton.onclick = function() {
+                    editTask(task);
+                }
+                task.appendChild(editButton);
 
-            // Clear the input field
-            taskInput.value = "";
+                
+                // Add the list item to the task list
+                var ul = document.getElementById("task-list");
+                ul.appendChild(task);
+
+                // Clear the input field
+                taskInput.value = "";
+            }
         }
     </script>
 </body>
